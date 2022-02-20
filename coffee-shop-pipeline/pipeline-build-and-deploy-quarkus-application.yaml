@@ -6,8 +6,8 @@ spec:
   params:
   - name: PREFIX
     type: string
-    description: PREFIX (GUID of the Shared environment)
-    default: GUID
+    description: PREFIX (v7nh9 of the Shared environment)
+    default: v7nh9
   - name: APP_NAME
     type: string
     description: The application deployment name
@@ -27,7 +27,7 @@ spec:
   - name: KUSTOMIZE_GIT_URL
     type: string
     description: The kustomize git repository url
-    default: http://homework-gitea.gpte-hw-cicd.svc:3000/OCP_USERNAME-GUID/coffee-shop-final-lab.git
+    default: http://homework-gitea.gpte-hw-cicd.svc:3000/ncamilli-redhat.com-v7nh9/coffee-shop-final-lab.git
   - name: KUSTOMIZE_GIT_REVISION
     type: string
     default: master
@@ -47,11 +47,11 @@ spec:
   - name: NEXUS_REGISTRY_URL
     type: string
     description: External URL for the container registry to set the production image from
-    default: NEXUS_REGISTRY_HOSTNAME
+    default: homework-nexus-registry.apps.shared-na46.openshift.opentlc.com
   - name: NAMESPACE_DEV
     type: string
     description: Namespace where the buildconfig is located
-    default: GUID-dev-coffeeshop
+    default: v7nh9-dev-coffeeshop
   results:
   - name: image-tag
     description: The Production Image Tag

@@ -2,11 +2,11 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: coffee-shop-database-prod
-  namespace: GUID-argocd
+  namespace: v7nh9-argocd
 spec:
   destination:
     server: https://kubernetes.default.svc
-    namespace: GUID-prod-coffeeshop
+    namespace: v7nh9-prod-coffeeshop
   project: coffee-shop
   source:
     chart: coffee-shop-postgresql

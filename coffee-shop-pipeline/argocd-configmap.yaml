@@ -3,4 +3,4 @@ kind: ConfigMap
 metadata:
   name: argocd-env-configmap
 data:
-  ARGOCD_SERVER: argocd-server.GUID-argocd.svc:80
+  ARGOCD_SERVER: argocd-server.v7nh9-argocd.svc:80
