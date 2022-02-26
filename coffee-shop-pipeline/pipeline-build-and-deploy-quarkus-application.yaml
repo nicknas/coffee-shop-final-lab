@@ -155,12 +155,17 @@ spec:
       - start
       - deploy-quarkus-application
       - --use-param-defaults
-      - --param DEPLOY_SERVERLESS=$(params.DEPLOY_SERVERLESS)
-      - --param APP_NAME=$(params.APP_NAME)
-      - --param IMAGE=image-registry.openshift-image-registry.svc:5000/$(params.NAMESPACE_DEV)/$(params.APP_NAME):dev-$(tasks.generate-tag.results.image-tag)
-      - --param NAMESPACE=$(params.NAMESPACE_DEV)
+      - --param
+      - DEPLOY_SERVERLESS=$(params.DEPLOY_SERVERLESS)
+      - --param
+      - APP_NAME=$(params.APP_NAME)
+      - --param
+      - IMAGE=image-registry.openshift-image-registry.svc:5000/$(params.NAMESPACE_DEV)/$(params.APP_NAME):dev-$(tasks.generate-tag.results.image-tag)
+      - --param
+      - NAMESPACE=$(params.NAMESPACE_DEV)
       - --showlog
-      - -n $(params.PREFIX)-pipeline
+      - -n
+      - $(params.PREFIX)-pipeline
 
   - name: tag-image-for-production
     runAfter:
