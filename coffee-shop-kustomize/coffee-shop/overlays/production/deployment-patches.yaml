@@ -7,5 +7,5 @@ spec:
     spec:
       containers:
       - name: coffee-shop
-        image: homework-nexus-registry.apps.shared-na46.openshift.opentlc.com/v7nh9-coffee-shop:prod-2022-02-26-16-01-01
+        image: homework-nexus-registry.apps.shared-na46.openshift.opentlc.com/v7nh9-coffee-shop:prod-2022-02-26-16-16-48
 
