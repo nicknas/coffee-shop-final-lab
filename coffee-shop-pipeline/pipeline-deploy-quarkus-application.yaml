@@ -20,7 +20,7 @@ spec:
   tasks:
   - name: set-image-in-dev
     when:
-    - input: $(params.DEPLOY_SERVERLESS)
+    - input: "$(params.DEPLOY_SERVERLESS)"
       operator: in
       values: ["false"]
     taskRef:
@@ -37,7 +37,7 @@ spec:
       - -n $(params.NAMESPACE)
   - name: update-kn-service-image
     when:
-    - input: $(params.DEPLOY_SERVERLESS)
+    - input: "$(params.DEPLOY_SERVERLESS)"
       operator: in
       values: ["true"]
     taskRef:
