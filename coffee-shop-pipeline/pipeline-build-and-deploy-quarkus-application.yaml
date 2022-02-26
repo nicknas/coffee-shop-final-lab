@@ -147,16 +147,20 @@ spec:
     - tag-image-for-development
     taskRef:
       kind: ClusterTask
-      name: deploy-quarkus-application
+      name: tkn
     params:
-    - name: DEPLOY_SERVERLESS
-      value: $(params.DEPLOY_SERVERLESS)
-    - name: APP_NAME
-      value: $(params.APP_NAME)
-    - name: IMAGE
-      value: image-registry.openshift-image-registry.svc:5000/$(params.NAMESPACE_DEV)/$(params.APP_NAME):dev-$(tasks.generate-tag.results.image-tag)
-    - name: NAMESPACE
-      value: $(params.NAMESPACE_DEV)
+    - name: ARGS
+      value:
+      - pipeline
+      - start
+      - deploy-quarkus-application
+      - --use-param-defaults
+      - --param DEPLOY_SERVERLESS=$(params.DEPLOY_SERVERLESS)
+      - --param APP_NAME=$(params.APP_NAME)
+      - --param IMAGE=image-registry.openshift-image-registry.svc:5000/$(params.NAMESPACE_DEV)/$(params.APP_NAME):dev-$(tasks.generate-tag.results.image-tag)
+      - --param NAMESPACE=$(params.NAMESPACE_DEV)
+      - --showlog
+      - -n $(params.PREFIX)-pipeline
 
   - name: tag-image-for-production
     runAfter:
