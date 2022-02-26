@@ -52,6 +52,10 @@ spec:
     type: string
     description: Namespace where the buildconfig is located
     default: v7nh9-dev-coffeeshop
+  - name: DEPLOY_SERVERLESS
+    type: string
+    description: Flag for deploying serverless apps or kubernetes deployment
+    default: "false"
   results:
   - name: image-tag
     description: The Production Image Tag
@@ -138,25 +142,25 @@ spec:
       - $(params.NAMESPACE_DEV)/$(params.APP_NAME):latest
       - $(params.NAMESPACE_DEV)/$(params.APP_NAME):dev-$(tasks.generate-tag.results.image-tag)
 
-  - name: set-image-in-dev
+  - name: run-deploy-quarkus-pipeline
     runAfter:
     - tag-image-for-development
     taskRef:
       kind: ClusterTask
-      name: openshift-client
+      name: deploy-quarkus-application
     params:
-    - name: ARGS
-      value:
-      - set
-      - image
-      - deployment
-      - $(params.APP_NAME)
-      - $(params.APP_NAME)=image-registry.openshift-image-registry.svc:5000/$(params.NAMESPACE_DEV)/$(params.APP_NAME):dev-$(tasks.generate-tag.results.image-tag)
-      - -n $(params.NAMESPACE_DEV)
+    - name: DEPLOY_SERVERLESS
+      value: $(params.DEPLOY_SERVERLESS)
+    - name: APP_NAME
+      value: $(params.APP_NAME)
+    - name: IMAGE
+      value: image-registry.openshift-image-registry.svc:5000/$(params.NAMESPACE_DEV)/$(params.APP_NAME):dev-$(tasks.generate-tag.results.image-tag)
+    - name: NAMESPACE
+      value: $(params.NAMESPACE_DEV)
 
   - name: tag-image-for-production
     runAfter:
-    - set-image-in-dev
+    - run-deploy-quarkus-pipeline
     taskRef:
       kind: ClusterTask
       name: openshift-client
