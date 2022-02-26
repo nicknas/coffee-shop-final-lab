@@ -1,0 +1,52 @@
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: deploy-quarkus-application
+spec:
+  params:
+  - name: DEPLOY_SERVERLESS
+    type: string
+    description: Deploy Serverless or k8 deployment
+    default: "false"
+  - name: APP_NAME
+    type: string
+    description: Application name to deploy
+  - name: IMAGE
+    type: string
+    description: Image URL with registry and tag
+  - name: NAMESPACE
+    type: string
+    description: Project to set the image in
+  tasks:
+  - name: set-image-in-dev
+    when:
+    - input: $(params.DEPLOY_SERVERLESS)
+      operator: in
+      values: ["false"]
+    taskRef:
+      kind: ClusterTask
+      name: openshift-client
+    params:
+    - name: ARGS
+      value:
+      - set
+      - image
+      - deployment
+      - $(params.APP_NAME)
+      - $(params.APP_NAME)=$(params.IMAGE)
+      - -n $(params.NAMESPACE)
+  - name: update-kn-service-image
+    when:
+    - input: $(params.DEPLOY_SERVERLESS)
+      operator: in
+      values: ["true"]
+    taskRef:
+      kind: ClusterTask
+      name: kn
+    params:
+    - name: ARGS
+      value:
+      - service
+      - update
+      - $(params.APP_NAME)
+      - --image=$(params.IMAGE)
