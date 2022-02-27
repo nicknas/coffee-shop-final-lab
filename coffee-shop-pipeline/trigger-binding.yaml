@@ -6,6 +6,6 @@ metadata:
 spec:
   params:
   - name: git-repo-url
-    value: $(body.repository.clone_url)
+    value: http://homework-gitea.gpte-hw-cicd.svc:3000/$(body.repository.full_name)
   - name: git-revision
     value: $(body.after)
