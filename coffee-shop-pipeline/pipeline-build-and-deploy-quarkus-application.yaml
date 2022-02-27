@@ -15,7 +15,7 @@ spec:
   - name: SOURCE_GIT_URL
     type: string
     description: The application git repository url
-    default: https://github.com/redhat-gpte-devopsautomation/coffee-shop-source
+    default: http://homework-gitea.gpte-hw-cicd.svc:3000/ncamilli-redhat.com-v7nh9/coffee-shop-source.git
   - name: SOURCE_GIT_REVISION
     type: string
     default: master
